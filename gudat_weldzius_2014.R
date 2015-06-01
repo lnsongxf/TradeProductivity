@@ -17,7 +17,7 @@ require(stargazer)
 
 
 # Basic parameters of analysis:
-starting_year <- 1981       
+starting_year <- 1981
 end_year <- 2012
 industries <- c(15,17,20,21,23,26,27,28,36)
 countries <- c("CAN","MEX","USA")
@@ -29,14 +29,14 @@ years <- seq(starting_year,end_year,1)                             # Construct t
 year <- rep(years,length(industries)*no_combs)                     # Constructs the 'year' variable
 id <- rep(seq(1, no_combs*length(industries)), each=length(years)) # Constructs a unique ID for each country combination
 f1 <- function(s) strsplit(s," ")[[1]][1]                          # function to use in sapply
-market_h <- t(sapply(combs,f1))                                    # Pick the first element of each unique market combination as market_h 
+market_h <- t(sapply(combs,f1))                                    # Pick the first element of each unique market combination as market_h
 market_h <- rep(market_h[1:length(market_h)],each=length(industries)*length(years))  # replicate market_h industry*year times
 f2 <- function(s) strsplit(s," ")[[1]][2]                          # function to use in sapply
 market_f <- t(sapply(combs,f2))                                    # Pick the second element of each unique market combination as market_f
 market_f <- rep(market_f[1:length(market_f)],each=length(industries)*length(years))  # replicate market_f industry*year times
 industry <- rep(rep(industries,each=length(years)),no_combs)       # repeat the industry vector years*combinations times
 
-data <- data.frame(id,year,industry,market_h,market_f)             # bind id,year,market_h and market_f together to form the basic structure of the data 
+data <- data.frame(id,year,industry,market_h,market_f)             # bind id,year,market_h and market_f together to form the basic structure of the data
 
 rm(combs, countries, f1, f2, industry, market_h, market_f, years,year)
 
@@ -76,7 +76,7 @@ open_ind_can <- read.csv(paste0(path, "Openness/open_ind_can.csv"))
 open_ind_mex <- read.csv(paste0(path, "Openness/open_ind_mex.csv"))
 open_ind_usa <- read.csv(paste0(path, "Openness/open_ind_usa.csv"))
 
-# 6. Market Size Data 
+# 6. Market Size Data
 gdp_can <- read.csv(paste0(path, "Market Size/gdp_can.csv"))
 gdp_mex <- read.csv(paste0(path, "Market Size/gdp_mex.csv"))
 gdp_usa <- read.csv(paste0(path, "Market Size/gdp_usa.csv"))
@@ -117,10 +117,11 @@ variables <- as.data.frame(matrix(data = NA, nrow = dim(data)[1], ncol=41))
 
 names(variables) <- c("ppi_h", "ppi_f", "prod_h", "prod_f", "prod_h", "prod_f",
                       "tau_hf", "tau_ht", "tau_fh", "tau_ft", "tau_th", "tau_tf",
-                      "tau_hf_w", "tau_ht_w", "tau_fh_w", "tau_ft_w", "tau_th_w", "tau_tf_w", 
-                      "open_hf", "open_ht", "open_fh", "open_ft", "open_th", "opentf",
-                      "open_ind_h", "open_ind_f", "open_ind_t", "firms_h", "firms_f",
-                      "gdp_h", "gdp_f", "emp_h", "emp_f", "imp_h", "imp_f", "exp_h", "exp_f",
+                      "tau_hf_w", "tau_ht_w", "tau_fh_w", "tau_ft_w", "tau_th_w",
+                      "tau_tf_w", "open_hf", "open_ht", "open_fh", "open_ft",
+                      "open_th", "opentf", "open_ind_h", "open_ind_f",
+                      "open_ind_t", "firms_h", "firms_f", "gdp_h", "gdp_f",
+                      "emp_h", "emp_f", "imp_h", "imp_f", "exp_h", "exp_f",
                       "wage_h", "wage_f", "cpi_h", "cpi_f")
 
 data <- cbind(data, variables)
@@ -268,20 +269,21 @@ data["exp_f"][data["market_f"]=="USA"] <- data["exp_usa"][data["market_f"]=="USA
 data <- data[order(data["id"]), ]
 
 # Produce a table of summary statistics
-sumstats <- stargazer(data, 
-                      title="Summary Statistics",
-                      omit=c("year", "id", "industry", "ppi_h", "ppi_f", "tau_hf", "tau_ht", "tau_fh", "tau_ft",
-                             "tau_th", "tau_tf", "tau_hf_w", "tau_ht_w", "tau_fh_w", "tau_ft_w", "tau_th_w", "tau_tf_w",
-                             "open_ind_h", "open_ind_f", "gdp_h", "gdp_f", "imp_h", "imp_f", "exp_h", "cpi_h", "cpi_f",
-                             "imp_can", "imp_mex", "imp_usa", "exp_can", "exp_mex", "exp_usa", "tau_w_can_usa", "tau_w_can_mex",
-                             "tau_w_mex_can", "tau_w_mex_usa", "tau_w_usa_can", "tau_w_usa_mex"),
+noprint <- c("year", "id", "industry", "ppi_h", "ppi_f", "tau_hf", "tau_ht",
+             "tau_fh", "tau_ft", "tau_th", "tau_tf", "tau_hf_w", "tau_ht_w",
+             "tau_fh_w", "tau_ft_w", "tau_th_w", "tau_tf_w", "open_ind_h",
+             "open_ind_f", "gdp_h", "gdp_f", "imp_h", "imp_f", "exp_h", "cpi_h",
+             "cpi_f", "imp_can", "imp_mex", "imp_usa", "exp_can", "exp_mex",
+             "exp_usa", "tau_w_can_usa", "tau_w_can_mex", "tau_w_mex_can",
+             "tau_w_mex_usa", "tau_w_usa_can", "tau_w_usa_mex")
+
+sumstats <- stargazer(data,
+                      title = "Summary Statistics",
+                      omit = noprint,
                       float = F,
                       float.env = "sidewaystable",
                       out="sumstats.tex")
 
-#_____________________________________________________________________________________________
-#_____________________________________________________________________________________________
-#_____________________________________________________________________________________________
 #_____________________________________________________________________________________________
 #_____________________________________________________________________________________________
 #_____________________________________________________________________________________________
@@ -354,7 +356,7 @@ gw.prod.sr2 <- plm(diff(rel_productivity) ~ diff(lntau_sh) + diff(lntau_sf) + d_
 gw.prod.sr3 <- plm(diff(rel_productivity) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(open_h)) + diff(log(open_f)) + diff(log(firms_h)) + diff(log(firms_f)), data=datgw, index=c("id"), model="within")
 gw.prod.sr4 <- plm(diff(rel_productivity) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(open_h)) + diff(log(open_f)) + diff(log(firms_h)) + diff(log(firms_f)), data=datgw, index=c("group_industryid"), model="within")
 
-stargazer(gw.prod.sr1, gw.prod.sr2, gw.prod.sr3, gw.prod.sr4, 
+stargazer(gw.prod.sr1, gw.prod.sr2, gw.prod.sr3, gw.prod.sr4,
           title="Productivity, Short Run",
           covariate.labels=c("$\\Delta \\log \\tau_t$",
                              "$\\Delta \\log \\tau_t^*$",
@@ -373,13 +375,13 @@ stargazer(gw.prod.sr1, gw.prod.sr2, gw.prod.sr3, gw.prod.sr4,
 #### TABLE 4: PRICES (LONG RUN - GW) ####
 #########################################
 
-gw.price.lr1 <- plm(diff(rel_ppi) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(firms_h)) + diff(log(firms_f)) + 
+gw.price.lr1 <- plm(diff(rel_ppi) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(firms_h)) + diff(log(firms_f)) +
                      + lag(rel_ppi) + lag(lntau_sh) + lag(lntau_sf) + lag(log(firms_h)) + lag(log(firms_f)) + lag(log(gdp_h)) + lag(log(gdp_f)) + 0, data=datgw, index=c("id"), model="within")
-gw.price.lr2 <- plm(diff(rel_ppi) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(firms_h)) + diff(log(firms_f)) + 
+gw.price.lr2 <- plm(diff(rel_ppi) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(firms_h)) + diff(log(firms_f)) +
                       + lag(rel_ppi) + lag(lntau_sh) + lag(lntau_sf) + lag(log(firms_h)) + lag(log(firms_f)) + lag(log(gdp_h)) + lag(log(gdp_f)) + 0, data=datgw, index=c("group_industryid"), model="within")
-gw.price.lr3 <- plm(diff(rel_ppi) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(open_h)) + diff(log(open_f)) + diff(log(firms_h)) + diff(log(firms_f)) + 
+gw.price.lr3 <- plm(diff(rel_ppi) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(open_h)) + diff(log(open_f)) + diff(log(firms_h)) + diff(log(firms_f)) +
                       + lag(rel_ppi) + lag(lntau_sh) + lag(lntau_sf) + lag(log(open_h)) + lag(log(open_f)) + lag(log(firms_h)) + lag(log(firms_f)) + lag(log(gdp_h)) + lag(log(gdp_f)) + 0, data=datgw, index=c("id"), model="within")
-gw.price.lr4 <- plm(diff(rel_ppi) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(open_h)) + diff(log(open_f)) + diff(log(firms_h)) + diff(log(firms_f)) + 
+gw.price.lr4 <- plm(diff(rel_ppi) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(open_h)) + diff(log(open_f)) + diff(log(firms_h)) + diff(log(firms_f)) +
                       + lag(rel_ppi) + lag(lntau_sh) + lag(lntau_sf) + lag(log(open_h)) + lag(log(open_f)) + lag(log(firms_h)) + lag(log(firms_f)) + lag(log(gdp_h)) + lag(log(gdp_f)) + 0, data=datgw, index=c("group_industryid"), model="within")
 
 stargazer(gw.price.lr1, gw.price.lr2, gw.price.lr3, gw.price.lr4,
@@ -449,12 +451,12 @@ gw.prod.lr1 <- plm(diff(rel_productivity) ~ diff(lntau_sh) + diff(lntau_sf) + d_
                       + lag(rel_productivity) + lag(lntau_sh) + lag(lntau_sf) + lag(log(gdp_h)) + lag(log(gdp_f)) + lag(log(wage_h)) + lag(log(wage_f)) + 0, data=datgw, index=c("id"), model="within")
 gw.prod.lr2 <- plm(diff(rel_productivity) ~ diff(lntau_sh) + diff(lntau_sf) + d_ln_firms_h + d_ln_firms_f
                    + lag(rel_productivity) + lag(lntau_sh) + lag(lntau_sf) + lag(log(gdp_h)) + lag(log(gdp_f)) + lag(log(wage_h)) + lag(log(wage_f)) + 0, data=datgw, index=c("group_industryid"), model="within")
-gw.prod.lr3 <- plm(diff(rel_productivity) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(open_h)) + diff(log(open_f)) + d_ln_firms_h + d_ln_firms_f 
+gw.prod.lr3 <- plm(diff(rel_productivity) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(open_h)) + diff(log(open_f)) + d_ln_firms_h + d_ln_firms_f
                    + lag(rel_productivity) + lag(lntau_sh) + lag(lntau_sf) + lag(log(open_h)) + lag(log(open_f)) + lag(log(gdp_h)) + lag(log(gdp_f)) + lag(log(wage_h)) + lag(log(wage_f)) + 0, data=datgw, index=c("id"), model="within")
 gw.prod.lr4 <- plm(diff(rel_productivity) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(open_h)) + diff(log(open_f)) + d_ln_firms_h + d_ln_firms_f
                    + lag(rel_productivity) + lag(lntau_sh) + lag(lntau_sf) + lag(log(open_h)) + lag(log(open_f)) + lag(log(gdp_h)) + lag(log(gdp_f)) + lag(log(wage_h)) + lag(log(wage_f)) + 0, data=datgw, index=c("group_industryid"), model="within")
 
-stargazer(gw.prod.lr1, gw.prod.lr2, gw.prod.lr3, gw.prod.lr4, 
+stargazer(gw.prod.lr1, gw.prod.lr2, gw.prod.lr3, gw.prod.lr4,
            title="Productivity, Long Run",
            covariate.labels=c("$\\Delta \\log \\tau_t$",
                               "$\\Delta \\log \\tau_t^*$",
