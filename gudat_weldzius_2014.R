@@ -6,40 +6,32 @@
 #######################################################
 #######################################################
 
-
-path = "/Users/Nils/Dropbox/Trade Paper/Data2014/Excel_Files/"
+rm(list=ls())
+path = "/Users/tew207/Dropbox/Trade Paper/Data2014/Excel_Files/"
 
 # Working directory and packages
 setwd(path)
+require(data.table)
 require(foreign)
 require(plm)
 require(stargazer)
 
 
 # Basic parameters of analysis:
-starting_year <- 1981
-end_year <- 2012
+start <- 1981       
+end   <- 2012
 industries <- c(15,17,20,21,23,26,27,28,36)
-countries <- c("CAN","MEX","USA")
+countries <- c("can", "usa", "mex")
+years <- (start:end)
+year <- rep(years ,length(industries)*3)                
+id <- rep((1:(3*length(industries))), each=length(years))  # Constructs a unique ID for each country pair
+industry <- rep(rep(industries,each=length(years)),3)               
+market_h <- rep(c("can","can","mex"), each=length(years)*length(industries))
+market_f <- rep(c("mex","usa","usa"), each=length(years)*length(industries))
 
-combs <- outer(countries, countries, paste, sep=" ")               # Creates all combinations of the strings found in countries (as a square matrix)
-combs <- combs[upper.tri(combs)]                                   # Picks the unique combinations from the matrix (upper triangular entries)
-no_combs <- length(combs)                                          # Count number of country pairs combinations
-years <- seq(starting_year,end_year,1)                             # Construct the year vector
-year <- rep(years,length(industries)*no_combs)                     # Constructs the 'year' variable
-id <- rep(seq(1, no_combs*length(industries)), each=length(years)) # Constructs a unique ID for each country combination
-f1 <- function(s) strsplit(s," ")[[1]][1]                          # function to use in sapply
-market_h <- t(sapply(combs,f1))                                    # Pick the first element of each unique market combination as market_h
-market_h <- rep(market_h[1:length(market_h)],each=length(industries)*length(years))  # replicate market_h industry*year times
-f2 <- function(s) strsplit(s," ")[[1]][2]                          # function to use in sapply
-market_f <- t(sapply(combs,f2))                                    # Pick the second element of each unique market combination as market_f
-market_f <- rep(market_f[1:length(market_f)],each=length(industries)*length(years))  # replicate market_f industry*year times
-industry <- rep(rep(industries,each=length(years)),no_combs)       # repeat the industry vector years*combinations times
+data <- data.table(id, year, industry, market_h, market_f)
 
-data <- data.frame(id,year,industry,market_h,market_f)             # bind id,year,market_h and market_f together to form the basic structure of the data
-
-rm(combs, countries, f1, f2, industry, market_h, market_f, years,year)
-
+rm(industry, market_h, market_f, year, years, start, end, id)
 
 #####################
 #### DATA IMPORT ####
@@ -64,19 +56,19 @@ ppi_mex <- read.csv(paste0(path, "Prices/ppi_mex.csv"))
 # prod_usa <- read.csv(paste0(path, "Productivity/prod_usa.csv"))
 
 # 4. Tariff Data
-tau_can <- read.csv(paste0(path, "Tariffs/tariffs_can.csv"))
-tau_mex <- read.csv(paste0(path, "Tariffs/tariffs_mex.csv"))
-tau_usa <- read.csv(paste0(path, "Tariffs/tariffs_usa.csv"))
+#tau_can <- read.csv(paste0(path, "Tariffs/tariffs_can.csv"))
+#tau_mex <- read.csv(paste0(path, "Tariffs/tariffs_mex.csv"))
+#tau_usa <- read.csv(paste0(path, "Tariffs/tariffs_usa.csv"))
 
 # 5. Openness Data
 # open_can <- read.csv(paste0(path, "Openness/open_can.csv"))
 # open_mex <- read.csv(paste0(path, "Openness/open_mex.csv"))
 # open_usa <- read.csv(paste0(path, "Openness/open_usa.csv"))
-open_ind_can <- read.csv(paste0(path, "Openness/open_ind_can.csv"))
-open_ind_mex <- read.csv(paste0(path, "Openness/open_ind_mex.csv"))
-open_ind_usa <- read.csv(paste0(path, "Openness/open_ind_usa.csv"))
+#open_ind_can <- read.csv(paste0(path, "Openness/open_ind_can.csv"))
+#open_ind_mex <- read.csv(paste0(path, "Openness/open_ind_mex.csv"))
+#open_ind_usa <- read.csv(paste0(path, "Openness/open_ind_usa.csv"))
 
-# 6. Market Size Data
+# 6. Market Size Data 
 gdp_can <- read.csv(paste0(path, "Market Size/gdp_can.csv"))
 gdp_mex <- read.csv(paste0(path, "Market Size/gdp_mex.csv"))
 gdp_usa <- read.csv(paste0(path, "Market Size/gdp_usa.csv"))
@@ -89,7 +81,7 @@ gdp_usa <- read.csv(paste0(path, "Market Size/gdp_usa.csv"))
 # firms_mex <- read.csv(paste0(path, "Firms/firms_mex.csv"))
 # firms_usa <- read.csv(paste0(path, "Firms/firms_usa.csv"))
 
-# 8. Import /Export Data
+# 8. Import/Export Data
 imp_can <- read.csv(paste0(path, "ImExports/imp_can.csv"))
 imp_mex <- read.csv(paste0(path, "ImExports/imp_mex.csv"))
 imp_usa <- read.csv(paste0(path, "ImExports/imp_usa.csv"))
@@ -103,169 +95,73 @@ exp_usa <- read.csv(paste0(path, "ImExports/exp_usa.csv"))
 # wage_usa<-read.csv(paste0(path, "Wages/wage_can.csv"))
 
 # 10. Exchange Rate Data
-fxrate_usa_can <- read.csv(paste0(path, "XRat/fxrate_USA_CAN.csv"))
-fxrate_usa_mex <- read.csv(paste0(path, "XRat/fxrate_USA_MEX.csv"))
-
-tau_romalis <- read.csv("/Users/tew207/Desktop/tau_romalis.csv")
-names(tau_romalis) <- c("year", 10:27)
+#fxrate_usa_can <- read.csv(paste0(path, "XRat/fxrate_USA_CAN.csv"))
+#fxrate_usa_mex <- read.csv(paste0(path, "XRat/fxrate_USA_MEX.csv"))
 
 
 #####################
 # CONSTRUCT DATASET #
 #####################
-variables <- as.data.frame(matrix(data = NA, nrow = dim(data)[1], ncol=41))
+variables <- 
+  c("ppi_h","ppi_f", "prod_h","prod_f", "tau_hf", "tau_ht", "tau_fh","tau_ft",
+    "tau_th","tau_tf","tau_hf_w", "tau_ht_w", "tau_fh_w", "tau_ft_w","tau_th_w", 
+    "tau_tf_w", "open_hf", "open_ht", "open_fh", "open_ft", "open_th","opentf",
+    "open_ind_h", "open_ind_f", "open_ind_t", "firms_h", "firms_f","gdp_h", 
+    "gdp_f", "emp_h", "emp_f", "imp_h", "imp_f", "exp_h", "exp_f", "wage_h", 
+    "wage_f", "cpi_h", "cpi_f")
 
-names(variables) <- c("ppi_h", "ppi_f", "prod_h", "prod_f", "prod_h", "prod_f",
-                      "tau_hf", "tau_ht", "tau_fh", "tau_ft", "tau_th", "tau_tf",
-                      "tau_hf_w", "tau_ht_w", "tau_fh_w", "tau_ft_w", "tau_th_w",
-                      "tau_tf_w", "open_hf", "open_ht", "open_fh", "open_ft",
-                      "open_th", "opentf", "open_ind_h", "open_ind_f",
-                      "open_ind_t", "firms_h", "firms_f", "gdp_h", "gdp_f",
-                      "emp_h", "emp_f", "imp_h", "imp_f", "exp_h", "exp_f",
-                      "wage_h", "wage_f", "cpi_h", "cpi_f")
-
-data <- cbind(data, variables)
-rm(variables, starting_year, end_year, no_combs, industries)
+data[, variables] <- as.double(NA)
+rm(variables)
 
 
-# For country-level data, we merge by year
+# Country-level data (merge by year only)
+for (i in countries) {
+  for (j in c("gdp_")) { #"cpi_", "open_ind_")) {
+    i="can"
+    j="gdp_"
+    var <- paste0(j,i)
+    varh <- paste0(j,"h")
+    varf <- paste0(j,"f")
+    data <- merge(data, get(var), by = c("year"), all=T)
+    rm(list=(var))
+    data[market_h==i, get(varh)] <- data[market_h==i, get(var)]
+    data[market_f==i, get(varf)] <- data[market_f==i, get(var)]
+    rm(list=(var), varh, varf)
+  }
+}
 
-data <- merge(data, gdp_can, by = c("year"), all=TRUE)
-data <- merge(data, gdp_mex, by = c("year"), all=TRUE)
-data <- merge(data, gdp_usa, by = c("year"), all=TRUE)
-data["gdp_h"][data["market_h"]=="CAN"] <- data["gdp_can"][data["market_h"]=="CAN"]
-data["gdp_f"][data["market_f"]=="CAN"] <- data["gdp_can"][data["market_f"]=="CAN"]
-data["gdp_h"][data["market_h"]=="MEX"] <- data["gdp_mex"][data["market_h"]=="MEX"]
-data["gdp_f"][data["market_f"]=="MEX"] <- data["gdp_mex"][data["market_f"]=="MEX"]
-data["gdp_f"][data["market_f"]=="USA"] <- data["gdp_usa"][data["market_f"]=="USA"]
+# Industry-level data (merge by year, industry)
+for (i in countries) {
+  for (j in #c("ppi_", "markup_", "prod_", "open_", "firms_", "wage_", 
+             c( "imp_", "exp_")) {
+    var <- paste0(j,i)
+    varh <- paste0(j,"h")
+    varf <- paste0(j,"f")
+    data <- merge(data, get(var), by=c("year", "industry"), all=T)
+    data[market_h==i, get(varh)] <- data[market_h==i, get(var)]
+    data[market_f==i, get(varf)] <- data[market_f==i, get(var)]
+    rm(list=(var), varh, varf)
+  }
+}
 
-# data <- merge(data, cpi_can, by = c("year"), all=TRUE)
-# data <- merge(data, cpi_mex, by = c("year"), all=TRUE)
-# data <- merge(data, cpi_usa, by = c("year"), all=TRUE)
-# data["cpi_h"][data["market_h"]=="CAN"] <- data["cpi_can"][data["market_h"]=="CAN"]
-# data["cpi_f"][data["market_f"]=="CAN"] <- data["cpi_can"][data["market_f"]=="CAN"]
-# data["cpi_h"][data["market_h"]=="MEX"] <- data["cpi_mex"][data["market_h"]=="MEX"]
-# data["cpi_f"][data["market_f"]=="MEX"] <- data["cpi_mex"][data["market_f"]=="MEX"]
-# data["cpi_f"][data["market_f"]=="USA"] <- data["cpi_usa"][data["market_f"]=="USA"]
+# Tariff data 
+#for (i in countries) {
+  var <- paste0("tau_",i)
+  data <- merge(data, get(var), by=c("year", "industry"), all=T)
+  for (j in countries) {
+      t <- countries[!countries %in% c(j,k)]
+      hfs <- paste0("tau_","i","_","j")
+      hts <- paste0("tau_","i","_","t")
+      fhs <- paste0("tau_","j","_","i")
+      fts <- paste0("tau_","j","_","t")
+      data[market_h==i & market_f==j]$tau_hf <- data[market_h==i & market_f==j]$hfs
+      data[market_h==i & market_f==j]$tau_ht <- data[market_h==i & market_f==j]$hts
+      data[market_h==i & market_f==j]$tau_fh <- data[market_h==i & market_f==j]$fhs
+      data[market_h==i & market_f==j]$tau_ft <- data[market_h==i & market_f==j]$fts
+  }
+}
 
-data <- merge(data, open_ind_can, by = c("year"), all=TRUE)
-data <- merge(data, open_ind_mex, by = c("year"), all=TRUE)
-data <- merge(data, open_ind_usa, by = c("year"), all=TRUE)
-data["open_ind_h"][data["market_h"]=="CAN"] <- data["open_ind_can"][data["market_h"]=="CAN"]
-data["open_ind_f"][data["market_f"]=="CAN"] <- data["open_ind_can"][data["market_f"]=="CAN"]
-data["open_ind_h"][data["market_h"]=="MEX"] <- data["open_ind_mex"][data["market_h"]=="MEX"]
-data["open_ind_f"][data["market_f"]=="MEX"] <- data["open_ind_mex"][data["market_f"]=="MEX"]
-data["open_ind_f"][data["market_f"]=="USA"] <- data["open_ind_usa"][data["market_f"]=="USA"]
-
-
-# For industry-level data, we merge by year and industry
-
-# data <- merge(data, ppi_can, by = c("year", "industry"), all=TRUE)
-# data <- merge(data, ppi_mex, by = c("year", "industry"), all=TRUE)
-# data <- merge(data, ppi_usa, by = c("year", "industry"), all=TRUE)
-# data["ppi_h"][data["market_h"]=="CAN"] <- data["ppi_can"][data["market_h"]=="CAN"]
-# data["ppi_h"][data["market_h"]=="MEX"] <- data["ppi_mex"][data["market_h"]=="MEX"]
-# data["ppi_f"][data["market_f"]=="MEX"] <- data["ppi_mex"][data["market_f"]=="MEX"]
-# data["ppi_f"][data["market_f"]=="USA"] <- data["ppi_usa"][data["market_f"]=="USA"]
-
-# data <- merge(data, markup_can, by = c("year", "industry"), all=TRUE)
-# data <- merge(data, markup_mex, by = c("year", "industry"), all=TRUE)
-# data <- merge(data, markup_usa, by = c("year", "industry"), all=TRUE)
-# data["markup_h"][data["market_h"]=="CAN"] <- data["markup_can"][data["market_h"]=="CAN"]
-# data["markup_h"][data["market_h"]=="MEX"] <- data["markup_mex"][data["market_h"]=="MEX"]
-# data["markup_f"][data["market_f"]=="MEX"] <- data["markup_mex"][data["market_f"]=="MEX"]
-# data["markup_f"][data["market_f"]=="USA"] <- data["markup_usa"][data["market_f"]=="USA"]
-
-# data <- merge(data, prod_can, by = c("year", "industry"), all=TRUE)
-# data <- merge(data, prod_mex, by = c("year", "industry"), all=TRUE)
-# data <- merge(data, prod_usa, by = c("year", "industry"), all=TRUE)
-# data["prod_h"][data["market_h"]=="CAN"] <- data["prod_can"][data["market_h"]=="CAN"]
-# data["prod_h"][data["market_h"]=="MEX"] <- data["prod_mex"][data["market_h"]=="MEX"]
-# data["prod_f"][data["market_f"]=="MEX"] <- data["prod_mex"][data["market_f"]=="MEX"]
-# data["prod_f"][data["market_f"]=="USA"] <- data["prod_usa"][data["market_f"]=="USA"]
-
-data <- merge(data, tau_can, by = c("year", "industry"), all=TRUE)
-data <- merge(data, tau_mex, by = c("year", "industry"), all=TRUE)
-data <- merge(data, tau_usa, by = c("year", "industry"), all=TRUE)
-data["tau_hf"][data["market_h"]=="CAN" & data["market_f"]=="MEX"] <- data["tau_s_can_mex"][data["market_h"]=="CAN" & data["market_f"]=="MEX"]
-data["tau_hf"][data["market_h"]=="CAN" & data["market_f"]=="USA"] <- data["tau_s_can_usa"][data["market_h"]=="CAN" & data["market_f"]=="USA"]
-data["tau_hf"][data["market_h"]=="MEX" & data["market_f"]=="USA"] <- data["tau_s_mex_usa"][data["market_h"]=="MEX" & data["market_f"]=="USA"]
-data["tau_ht"][data["market_h"]=="CAN" & data["market_f"]=="MEX"] <- data["tau_s_can_usa"][data["market_h"]=="CAN" & data["market_f"]=="MEX"]
-data["tau_ht"][data["market_h"]=="CAN" & data["market_f"]=="USA"] <- data["tau_s_can_mex"][data["market_h"]=="CAN" & data["market_f"]=="USA"]
-data["tau_ht"][data["market_h"]=="MEX" & data["market_f"]=="USA"] <- data["tau_s_mex_can"][data["market_h"]=="MEX" & data["market_f"]=="USA"]
-data["tau_fh"][data["market_h"]=="CAN" & data["market_f"]=="MEX"] <- data["tau_s_mex_can"][data["market_h"]=="CAN" & data["market_f"]=="MEX"]
-data["tau_fh"][data["market_h"]=="CAN" & data["market_f"]=="USA"] <- data["tau_s_usa_can"][data["market_h"]=="CAN" & data["market_f"]=="USA"]
-data["tau_fh"][data["market_h"]=="MEX" & data["market_f"]=="USA"] <- data["tau_s_usa_mex"][data["market_h"]=="MEX" & data["market_f"]=="USA"]
-data["tau_ft"][data["market_h"]=="CAN" & data["market_f"]=="MEX"] <- data["tau_s_mex_usa"][data["market_h"]=="CAN" & data["market_f"]=="MEX"]
-data["tau_ft"][data["market_h"]=="CAN" & data["market_f"]=="USA"] <- data["tau_s_usa_mex"][data["market_h"]=="CAN" & data["market_f"]=="USA"]
-data["tau_ft"][data["market_h"]=="MEX" & data["market_f"]=="USA"] <- data["tau_s_usa_can"][data["market_h"]=="MEX" & data["market_f"]=="USA"]
-data["tau_th"][data["market_h"]=="CAN" & data["market_f"]=="MEX"] <- data["tau_s_usa_can"][data["market_h"]=="CAN" & data["market_f"]=="MEX"]
-data["tau_th"][data["market_h"]=="CAN" & data["market_f"]=="USA"] <- data["tau_s_mex_can"][data["market_h"]=="CAN" & data["market_f"]=="USA"]
-data["tau_th"][data["market_h"]=="MEX" & data["market_f"]=="USA"] <- data["tau_s_can_mex"][data["market_h"]=="MEX" & data["market_f"]=="USA"]
-data["tau_tf"][data["market_h"]=="CAN" & data["market_f"]=="MEX"] <- data["tau_s_usa_mex"][data["market_h"]=="CAN" & data["market_f"]=="MEX"]
-data["tau_tf"][data["market_h"]=="CAN" & data["market_f"]=="USA"] <- data["tau_s_mex_usa"][data["market_h"]=="CAN" & data["market_f"]=="USA"]
-data["tau_tf"][data["market_h"]=="MEX" & data["market_f"]=="USA"] <- data["tau_s_can_usa"][data["market_h"]=="MEX" & data["market_f"]=="USA"]
-data["tau_hf_w"][data["market_h"]=="CAN" & data["market_f"]=="MEX"] <- data["tau_w_can_mex"][data["market_h"]=="CAN" & data["market_f"]=="MEX"]
-data["tau_hf_w"][data["market_h"]=="CAN" & data["market_f"]=="USA"] <- data["tau_w_can_usa"][data["market_h"]=="CAN" & data["market_f"]=="USA"]
-data["tau_hf_w"][data["market_h"]=="MEX" & data["market_f"]=="USA"] <- data["tau_w_mex_usa"][data["market_h"]=="MEX" & data["market_f"]=="USA"]
-data["tau_ht_w"][data["market_h"]=="CAN" & data["market_f"]=="MEX"] <- data["tau_w_can_usa"][data["market_h"]=="CAN" & data["market_f"]=="MEX"]
-data["tau_ht_w"][data["market_h"]=="CAN" & data["market_f"]=="USA"] <- data["tau_w_can_mex"][data["market_h"]=="CAN" & data["market_f"]=="USA"]
-data["tau_ht_w"][data["market_h"]=="MEX" & data["market_f"]=="USA"] <- data["tau_w_mex_can"][data["market_h"]=="MEX" & data["market_f"]=="USA"]
-data["tau_fh_w"][data["market_h"]=="CAN" & data["market_f"]=="MEX"] <- data["tau_w_mex_can"][data["market_h"]=="CAN" & data["market_f"]=="MEX"]
-data["tau_fh_w"][data["market_h"]=="CAN" & data["market_f"]=="USA"] <- data["tau_w_usa_can"][data["market_h"]=="CAN" & data["market_f"]=="USA"]
-data["tau_fh_w"][data["market_h"]=="MEX" & data["market_f"]=="USA"] <- data["tau_w_usa_mex"][data["market_h"]=="MEX" & data["market_f"]=="USA"]
-data["tau_ft_w"][data["market_h"]=="CAN" & data["market_f"]=="MEX"] <- data["tau_w_mex_usa"][data["market_h"]=="CAN" & data["market_f"]=="MEX"]
-data["tau_ft_w"][data["market_h"]=="CAN" & data["market_f"]=="USA"] <- data["tau_w_usa_mex"][data["market_h"]=="CAN" & data["market_f"]=="USA"]
-data["tau_ft_w"][data["market_h"]=="MEX" & data["market_f"]=="USA"] <- data["tau_w_usa_can"][data["market_h"]=="MEX" & data["market_f"]=="USA"]
-data["tau_th_w"][data["market_h"]=="CAN" & data["market_f"]=="MEX"] <- data["tau_w_usa_can"][data["market_h"]=="CAN" & data["market_f"]=="MEX"]
-data["tau_th_w"][data["market_h"]=="CAN" & data["market_f"]=="USA"] <- data["tau_w_mex_can"][data["market_h"]=="CAN" & data["market_f"]=="USA"]
-data["tau_th_w"][data["market_h"]=="MEX" & data["market_f"]=="USA"] <- data["tau_w_can_mex"][data["market_h"]=="MEX" & data["market_f"]=="USA"]
-data["tau_tf_w"][data["market_h"]=="CAN" & data["market_f"]=="MEX"] <- data["tau_w_usa_mex"][data["market_h"]=="CAN" & data["market_f"]=="MEX"]
-data["tau_tf_w"][data["market_h"]=="CAN" & data["market_f"]=="USA"] <- data["tau_w_mex_usa"][data["market_h"]=="CAN" & data["market_f"]=="USA"]
-data["tau_tf_w"][data["market_h"]=="MEX" & data["market_f"]=="USA"] <- data["tau_w_can_usa"][data["market_h"]=="MEX" & data["market_f"]=="USA"]
-
-# data <- merge(data, open_can, by = c("year", "industry"), all=TRUE)
-# data <- merge(data, open_mex, by = c("year", "industry"), all=TRUE)
-# data <- merge(data, open_usa, by = c("year", "industry"), all=TRUE)
-# data["open_h"][data["market_h"]=="CAN"] <- data["open_can"][data["market_h"]=="CAN"]
-# data["open_h"][data["market_h"]=="MEX"] <- data["open_mex"][data["market_h"]=="MEX"]
-# data["open_f"][data["market_f"]=="MEX"] <- data["open_mex"][data["market_f"]=="MEX"]
-# data["open_f"][data["market_f"]=="USA"] <- data["open_usa"][data["market_f"]=="USA"]
-
-# data <- merge(data, firms_can, by = c("year", "industry"), all=TRUE)
-# data <- merge(data, firms_mex, by = c("year", "industry"), all=TRUE)
-# data <- merge(data, firms_usa, by = c("year", "industry"), all=TRUE)
-# data["firms_h"][data["market_h"]=="CAN"] <- data["firms_can"][data["market_h"]=="CAN"]
-# data["firms_h"][data["market_h"]=="MEX"] <- data["firms_mex"][data["market_h"]=="MEX"]
-# data["firms_f"][data["market_f"]=="MEX"] <- data["firms_mex"][data["market_f"]=="MEX"]
-# data["firms_f"][data["market_f"]=="USA"] <- data["firms_usa"][data["market_f"]=="USA"]
-
-# data <- merge(data, wage_can, by = c("year", "industry"), all=TRUE)
-# data <- merge(data, wage_mex, by = c("year", "industry"), all=TRUE)
-# data <- merge(data, wage_usa, by = c("year", "industry"), all=TRUE)
-# data["wage_h"][data["market_h"]=="CAN"] <- data["wage_can"][data["market_h"]=="CAN"]
-# data["wage_h"][data["market_h"]=="MEX"] <- data["wage_mex"][data["market_h"]=="MEX"]
-# data["wage_f"][data["market_f"]=="MEX"] <- data["wage_mex"][data["market_f"]=="MEX"]
-# data["wage_f"][data["market_f"]=="USA"] <- data["wage_usa"][data["market_f"]=="USA"]
-
-data <- merge(data, imp_can, by = c("year", "industry"), all=TRUE)
-data <- merge(data, imp_mex, by = c("year", "industry"), all=TRUE)
-data <- merge(data, imp_usa, by = c("year", "industry"), all=TRUE)
-data["imp_h"][data["market_h"]=="CAN"] <- data["imp_can"][data["market_h"]=="CAN"]
-data["imp_h"][data["market_h"]=="MEX"] <- data["imp_mex"][data["market_h"]=="MEX"]
-data["imp_f"][data["market_f"]=="MEX"] <- data["imp_mex"][data["market_f"]=="MEX"]
-data["imp_f"][data["market_f"]=="USA"] <- data["imp_usa"][data["market_f"]=="USA"]
-
-data <- merge(data, exp_can, by = c("year", "industry"), all=TRUE)
-data <- merge(data, exp_mex, by = c("year", "industry"), all=TRUE)
-data <- merge(data, exp_usa, by = c("year", "industry"), all=TRUE)
-data["exp_h"][data["market_h"]=="CAN"] <- data["exp_can"][data["market_h"]=="CAN"]
-data["exp_h"][data["market_h"]=="MEX"] <- data["exp_mex"][data["market_h"]=="MEX"]
-data["exp_f"][data["market_f"]=="MEX"] <- data["exp_mex"][data["market_f"]=="MEX"]
-data["exp_f"][data["market_f"]=="USA"] <- data["exp_usa"][data["market_f"]=="USA"]
-
-# Order the data according to the id set at the beginning
-# (This ensures ordering by country pair and industry)
+# Order by country pair and industry
 data <- data[order(data["id"]), ]
 
 # Produce a table of summary statistics
@@ -277,17 +173,13 @@ noprint <- c("year", "id", "industry", "ppi_h", "ppi_f", "tau_hf", "tau_ht",
              "exp_usa", "tau_w_can_usa", "tau_w_can_mex", "tau_w_mex_can",
              "tau_w_mex_usa", "tau_w_usa_can", "tau_w_usa_mex")
 
-sumstats <- stargazer(data,
-                      title = "Summary Statistics",
-                      omit = noprint,
-                      float = F,
-                      float.env = "sidewaystable",
-                      out="sumstats.tex")
+sumstats <- stargazer(data, title = "Summary Statistics", omit = noprint, 
+                      float = F, float.env = "sidewaystable",
+                      out=paste0(path,"sumstats.tex"))
 
-#_____________________________________________________________________________________________
-#_____________________________________________________________________________________________
-#_____________________________________________________________________________________________
-#_____________________________________________________________________________________________
+#_______________________________________________________________________________
+#_______________________________________________________________________________
+#_______________________________________________________________________________
 
 #############################################
 #### DATA FROM GUDAT AND WELDZIUS (2014) ####
@@ -319,8 +211,7 @@ stargazer(gw.price.sr1, gw.price.sr2,
           dep.var.labels="$\\Delta \\log \\left(\\frac{p}{p^*} \\right)$",
           notes = c("Fixed effects for country pair"),
           omit.stat = c("adj.rsq", "f", "ser"),
-          float=F,
-          out="gw_price_sr.tex")
+          float=F, out="gw_price_sr.tex")
 
 
 ###########################################
@@ -343,8 +234,7 @@ stargazer(gw.mark.sr1, gw.mark.sr2, gw.mark.sr3, gw.mark.sr4,
           dep.var.labels = "$\\Delta \\log \\left(\\frac{\\mu}{\\mu^*} \\right)$",
           omit.stat = c("adj.rsq","f","ser"),
           notes = c("Fixed effects for country pair"),
-          float = F,
-          out = "gw_mark_sr.tex")
+          float = F, out = "gw_mark_sr.tex")
 
 
 ################################################
@@ -367,8 +257,7 @@ stargazer(gw.prod.sr1, gw.prod.sr2, gw.prod.sr3, gw.prod.sr4,
           dep.var.labels="$\\Delta \\log \\left(\\frac{z}{z^*} \\right)$",
           notes = c("Fixed effects for country pair"),
           omit.stat=c("adj.rsq","f","ser"),
-          float=F,
-          out="gw_prod_sr.tex")
+          float=F, out="gw_prod_sr.tex")
 
 
 #########################################
@@ -404,16 +293,18 @@ stargazer(gw.price.lr1, gw.price.lr2, gw.price.lr3, gw.price.lr4,
           dep.var.labels="$\\Delta \\log \\left(\\frac{p_t}{p_t^*} \\right)$",
           notes = c("Fixed effects for country pair"),
           omit.stat=c("adj.rsq","f","ser"),
-          float=F,
-          out="gw_price_lr.tex")
+          float=F, out="gw_price_lr.tex")
 
 
 ##########################################
 #### TABLE 5: prodS (LONG RUN - GW) ####
 ##########################################
 
-gw.mark.lr1 <- plm(diff(log(prod_h/prod_f)) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(firms_h)) + diff(log(firms_f))
-                   + lag(log(prod_h/prod_f)) + lag(lntau_sh)+ lag(lntau_sf) + lag(log(gdp_h)) + lag(log(gdp_f)) + 0, data=datgw, index=c("id"), model="within")
+gw.mark.lr1 <- 
+  plm(diff(log(prod_h/prod_f)) ~ diff(lntau_sh) + diff(lntau_sf) 
+                               + diff(log(firms_h)) + diff(log(firms_f))
+                               + lag(log(prod_h/prod_f)) + lag(lntau_sh)
+                               + lag(lntau_sf) + lag(log(gdp_h)) + lag(log(gdp_f)) + 0, data=datgw, index=c("id"), model="within")
 gw.mark.lr2 <- plm(diff(log(prod_h/prod_f)) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(firms_h)) + diff(log(firms_f))
                    + lag(log(prod_h/prod_f)) + lag(lntau_sh) + lag(lntau_sf) + lag(log(gdp_h)) + lag(log(gdp_f)) + 0, data=datgw, index=c("group_industryid"), model="within")
 gw.mark.lr3 <- plm(diff(log(prod_h/prod_f)) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(open_h)) + diff(log(open_f)) + diff(log(firms_h)) + diff(log(firms_f))
@@ -439,8 +330,7 @@ stargazer(gw.mark.lr1, gw.mark.lr2, gw.mark.lr3, gw.mark.lr4,
           dep.var.labels="$\\Delta \\log \\left(\\frac{\\mu}{\\mu^*} \\right)$",
           notes = c("Fixed effects for country pair"),
           omit.stat=c("adj.rsq","f","ser"),
-          float=F,
-          out="gw_mark_lr.tex")
+          float=F, out="gw_mark_lr.tex")
 
 
 ###############################################
@@ -476,5 +366,4 @@ stargazer(gw.prod.lr1, gw.prod.lr2, gw.prod.lr3, gw.prod.lr4,
            dep.var.labels="$\\Delta \\log \\left(\\frac{z}{z^*} \\right)$",
            notes = c("Fixed effects for country pair or industry/country pair"),
            omit.stat=c("adj.rsq","f","ser"),
-           float=F,
-           out="gw_prod_lr.tex")
+           float=F, OUt="gw_prod_lr.tex")
