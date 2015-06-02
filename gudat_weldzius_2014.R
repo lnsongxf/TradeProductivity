@@ -116,7 +116,7 @@ rm(variables)
 
 # Country-level data (merge by year only)
 for (i in countries) {
-  for (j in c("gdp_""cpi_", "open_ind_")) {
+  for (j in c("gdp_"", cpi_", "open_ind_")) {
     data <- merge(data, get(paste0(j,i)), by = c("year"), all=T)
     data[market_h==i, paste0(j,"h") := get(paste0(j,i))]
     data[market_f==i, paste0(j,"f") := get(paste0(j,i))]
@@ -126,7 +126,8 @@ for (i in countries) {
 
 # Industry-level data (merge by year, industry)
 for (i in countries) {
-  for (j in c("ppi_", "markup_", "prod_", "open_", "firms_", "wage_")) {
+  for (j in c("ppi_", "markup_", "prod_", "open_", "firms_", "wage_", 
+              "exp_", "imp_")) {
     data <- merge(data, get(paste0(j,i)), by = c("year", "industry"), all=T)
     data[market_h==i, paste0(j,"h") := get(paste0(j,i))]
     data[market_f==i, paste0(j,"f") := get(paste0(j,i))]
@@ -143,6 +144,8 @@ for (i in countries) {
   rm(list=paste0("tau_",i))
 }
 
+# Order data by country pair/industry id
+data <- data[order(id)]
 
 # Produce a table of summary statistics
 noprint <- c("year", "id", "industry", "ppi_h", "ppi_f", "tau_hf", "tau_ht",
