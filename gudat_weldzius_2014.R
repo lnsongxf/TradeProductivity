@@ -116,22 +116,21 @@ rm(variables)
 
 # Country-level data (merge by year only)
 for (i in countries) {
-  for (j in c("gdp_")) { #"cpi_", "open_ind_")) {
+  for (j in c("gdp_""cpi_", "open_ind_")) {
     data <- merge(data, get(paste0(j,i)), by = c("year"), all=T)
-    data[market_h--i, get(paste0(j,"h")) := get(paste0(j,i))]
-    data[market_f==i, get(paste0(j,"f")) := get(paste0(j,i))]
-    rm(list=(get(paste0(j,i))))
+    data[market_h==i, paste0(j,"h") := get(paste0(j,i))]
+    data[market_f==i, paste0(j,"f") := get(paste0(j,i))]
+    rm(list=paste0(j,i))
   }
 }
 
 # Industry-level data (merge by year, industry)
 for (i in countries) {
-  for (j in #c("ppi_", "markup_", "prod_", "open_", "firms_", "wage_", 
-             c( "imp_", "exp_")) {
+  for (j in c("ppi_", "markup_", "prod_", "open_", "firms_", "wage_")) {
     data <- merge(data, get(paste0(j,i)), by = c("year", "industry"), all=T)
-    data[market_h==i, get(paste0(j,"h")) := get(paste0(j,i))]
-    data[market_f==i, get(paste0(j,"f")) := get(paste0(j,i))]
-    rm(list=(get(paste0(j,i))))
+    data[market_h==i, paste0(j,"h") := get(paste0(j,i))]
+    data[market_f==i, paste0(j,"f") := get(paste0(j,i))]
+    rm(list=paste0(j,i))
   }
   data <- merge(data, get(paste0("tau_",i)), by=c("year", "industry"), all=T)
   for (j in countries) {
@@ -141,7 +140,7 @@ for (i in countries) {
     data[market_h==i & market_f==j, tau_fh := get(paste0("tau_",j,"_",i))]
     data[market_h==i & market_f==j, tau_ft := get(paste0("tau_",j,"_",t))]
   }
-  rm(list=(paste0("tau_",i)))
+  rm(list=paste0("tau_",i))
 }
 
 
