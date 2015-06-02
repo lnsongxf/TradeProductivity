@@ -1,10 +1,9 @@
-#######################################################
-#######################################################
-#####     The Competitive Effects of Trade       ######
-#####     Liberalization in North American       ######
-#####       Nils Gudat and Ryan Weldzius         ######
-#######################################################
-#######################################################
+
+################################################################################
+#################     The Competitive Effects of Trade       ###################
+#################     Liberalization in North America        ###################
+#################       Nils Gudat and Ryan Weldzius         ###################
+################################################################################
 
 rm(list=ls())
 path = "/Users/tew207/Dropbox/Trade Paper/Data2014/Excel_Files/"
@@ -24,7 +23,7 @@ industries <- c(15,17,20,21,23,26,27,28,36)
 countries <- c("can", "usa", "mex")
 years <- (start:end)
 year <- rep(years ,length(industries)*3)                
-id <- rep((1:(3*length(industries))), each=length(years))  # Constructs a unique ID for each country pair
+id <- rep((1:(3*length(industries))), each=length(years)) 
 industry <- rep(rep(industries,each=length(years)),3)               
 market_h <- rep(c("can","can","mex"), each=length(years)*length(industries))
 market_f <- rep(c("mex","usa","usa"), each=length(years)*length(industries))
@@ -33,9 +32,9 @@ data <- data.table(id, year, industry, market_h, market_f)
 
 rm(industry, market_h, market_f, year, years, start, end, id)
 
-#####################
-#### DATA IMPORT ####
-#####################
+################################################################################
+############################## IMPORT DATA #####################################
+################################################################################
 
 # 1. Price Data
 #ppi_can <- read.csv(paste0(path, "Prices/ppi_can.csv"))
@@ -99,9 +98,10 @@ exp_usa <- read.csv(paste0(path, "ImExports/exp_usa.csv"))
 #fxrate_usa_mex <- read.csv(paste0(path, "XRat/fxrate_USA_MEX.csv"))
 
 
-#####################
-# CONSTRUCT DATASET #
-#####################
+################################################################################
+########################### CONSTRUCT DATASET ##################################
+################################################################################
+
 variables <- 
   c("ppi_h","ppi_f", "prod_h","prod_f", "tau_hf", "tau_ht", "tau_fh","tau_ft",
     "tau_th","tau_tf","tau_hf_w", "tau_ht_w", "tau_fh_w", "tau_ft_w","tau_th_w", 
@@ -117,16 +117,10 @@ rm(variables)
 # Country-level data (merge by year only)
 for (i in countries) {
   for (j in c("gdp_")) { #"cpi_", "open_ind_")) {
-    i="can"
-    j="gdp_"
-    var <- paste0(j,i)
-    varh <- paste0(j,"h")
-    varf <- paste0(j,"f")
-    data <- merge(data, get(var), by = c("year"), all=T)
-    rm(list=(var))
-    data[market_h==i, get(varh)] <- data[market_h==i, get(var)]
-    data[market_f==i, get(varf)] <- data[market_f==i, get(var)]
-    rm(list=(var), varh, varf)
+    data <- merge(data, get(paste0(j,i)), by = c("year"), all=T)
+    data[market_h--i, get(paste0(j,"h")) := get(paste0(j,i))]
+    data[market_f==i, get(paste0(j,"f")) := get(paste0(j,i))]
+    rm(list=(get(paste0(j,i))))
   }
 }
 
@@ -134,35 +128,22 @@ for (i in countries) {
 for (i in countries) {
   for (j in #c("ppi_", "markup_", "prod_", "open_", "firms_", "wage_", 
              c( "imp_", "exp_")) {
-    var <- paste0(j,i)
-    varh <- paste0(j,"h")
-    varf <- paste0(j,"f")
-    data <- merge(data, get(var), by=c("year", "industry"), all=T)
-    data[market_h==i, get(varh)] <- data[market_h==i, get(var)]
-    data[market_f==i, get(varf)] <- data[market_f==i, get(var)]
-    rm(list=(var), varh, varf)
+    data <- merge(data, get(paste0(j,i)), by = c("year", "industry"), all=T)
+    data[market_h==i, get(paste0(j,"h")) := get(paste0(j,i))]
+    data[market_f==i, get(paste0(j,"f")) := get(paste0(j,i))]
+    rm(list=(get(paste0(j,i))))
   }
-}
-
-# Tariff data 
-#for (i in countries) {
-  var <- paste0("tau_",i)
-  data <- merge(data, get(var), by=c("year", "industry"), all=T)
+  data <- merge(data, get(paste0("tau_",i)), by=c("year", "industry"), all=T)
   for (j in countries) {
-      t <- countries[!countries %in% c(j,k)]
-      hfs <- paste0("tau_","i","_","j")
-      hts <- paste0("tau_","i","_","t")
-      fhs <- paste0("tau_","j","_","i")
-      fts <- paste0("tau_","j","_","t")
-      data[market_h==i & market_f==j]$tau_hf <- data[market_h==i & market_f==j]$hfs
-      data[market_h==i & market_f==j]$tau_ht <- data[market_h==i & market_f==j]$hts
-      data[market_h==i & market_f==j]$tau_fh <- data[market_h==i & market_f==j]$fhs
-      data[market_h==i & market_f==j]$tau_ft <- data[market_h==i & market_f==j]$fts
+    t <- countries[!countries %in% c(j,k)]
+    data[market_h==i & market_f==j, tau_hf := get(paste0("tau_",i,"_",j))]
+    data[market_h==i & market_f==j, tau_ht := get(paste0("tau_",i,"_",t))]
+    data[market_h==i & market_f==j, tau_fh := get(paste0("tau_",j,"_",i))]
+    data[market_h==i & market_f==j, tau_ft := get(paste0("tau_",j,"_",t))]
   }
+  rm(list=(paste0("tau_",i)))
 }
 
-# Order by country pair and industry
-data <- data[order(data["id"]), ]
 
 # Produce a table of summary statistics
 noprint <- c("year", "id", "industry", "ppi_h", "ppi_f", "tau_hf", "tau_ht",
