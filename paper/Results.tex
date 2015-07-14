@@ -1,0 +1,99 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[german,english]{babel}
+\usepackage{charter}
+\usepackage[T1]{fontenc} 
+\usepackage{amsmath,amssymb,amsthm} % Typical maths resource packages
+\usepackage{amsfonts}
+\usepackage{graphicx} % Packages to allow inclusion of graphics
+\usepackage[authoryear]{natbib} % literature reference style
+\usepackage{cancel}
+\usepackage{dsfont}
+\usepackage{amsthm}
+\usepackage{color}
+\usepackage{float}
+\usepackage{epsfig}
+\usepackage{epstopdf}
+\usepackage{setspace}
+\usepackage{rotating}
+\usepackage[automark]{scrpage2}
+\pagestyle{scrheadings}
+\automark{section}
+\clearscrheadings
+%\ohead{\headmark} % puts chapter heading on top of each page
+\bibliographystyle{ecta} % define citation style
+% define page size, margin size
+\setlength{\headheight}{1.8\baselineskip}
+\voffset=-3cm
+\hoffset=-3cm
+\textheight24cm
+\textwidth16.5cm
+\topmargin1cm
+\oddsidemargin3cm
+\evensidemargin3cm
+\renewcommand{\baselinestretch}{1.5} % define line line spacing = 1.5
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Lagr}{\mathcal{L}}
+\usepackage{hyperref}
+
+
+\begin{document}
+
+\begin{center}
+\textbf{Results Overview}
+\end{center}
+
+This document collates the results obtained in the file \texttt{gudat\_weldzius\_2014.R}. The following results are available:
+
+\begin{itemize}
+	\item Table \ref{cis_price_sr}: Chen et al. (2011), Prices Short Run
+	\item Table \ref{cis_prod_sr}: Chen et al. (2001), Productivity Short Run
+	\item Table \ref{cis_mark_sr}: Chen et al. (2011), Markups Short Run
+	\item Table \ref{cis_price_lr}: Chen et al. (2011), Prices Long Run
+	\item Table \ref{cis_prod_lr}: Chen et al. (2011), Productivity Long Run
+	\item Table \ref{cis_mark_lr}: Chen et al. (2011), Markups Long Run
+\end{itemize}
+
+\begin{table}
+\input{cis_price_sr.tex}
+\caption{Prices, Short Run}
+\label{cis_price_sr}
+\end{table}
+
+\begin{table}
+\input{cis_prod_sr.tex}
+\caption{Productivity, Short Run}
+\label{cis_prod_sr}
+\end{table}
+
+\begin{table}
+\input{cis_mark_sr.tex}
+\caption{Markups, Short Run}
+\label{cis_mark_sr}
+\end{table}
+
+\begin{table}
+\input{cis_price_lr.tex}
+\caption{Prices, Long Run}
+\label{cis_price_lr}
+\end{table}
+
+\begin{table}
+\input{cis_prod_lr.tex}
+\caption{Productivity, Long Run}
+\label{cis_prod_lr}
+\end{table}
+
+\begin{table}
+\input{cis_mark_sr.tex}
+\caption{Markups, Long Run}
+\label{cis_mark_lr}
+\end{table}
+
+\begin{sidewaystable}
+\input{sumstats.tex}
+\caption{Summary Statistics}
+\label{sumstats}
+\end{sidewaystable}
+
+\end{document}
+
