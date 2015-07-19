@@ -168,8 +168,10 @@ sumstats <- stargazer(data, title = "Summary Statistics", omit = noprint,
 #### DATA FROM GUDAT AND WELDZIUS (2014) ####
 #############################################
 
+# Transform data into plm format (double check!)
+data <- plm.data(data, c("id","year"))
 
-# Read data:
+# Read data (This shoudld go once our dataset is assembled):
 datgw <- read.dta("data_nafta_final.dta")
 
 
