@@ -278,20 +278,20 @@ data <- plm.data(data, c("id","year"))
 
 gw.price.sr1 <- 
   plm(diff(rel_ppi) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(open_h)) 
-      + diff(log(open_f)) + diff(log(firms_h)) + diff(log(firms_f)) + 0, 
+      + diff(log(open_f)) + diff(log(firms_h)) + diff(log(firms_f)), 
       data=datgw, index=c("id"), model="within")
 gw.price.sr2 <- 
   plm(diff(rel_ppi) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(open_h)) 
-      + diff(log(open_f)) + diff(log(firms_h)) + diff(log(firms_f)) + 0, 
+      + diff(log(open_f)) + diff(log(firms_h)) + diff(log(firms_f)), 
       data=datgw, index=c("group_industryid"), model="within")
 gw.price.sr3 <- 
   plm(diff(rel_ppi) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(open_h)) 
       + diff(log(open_f)) + diff(log(firms_h)) + diff(log(firms_f)) 
-      + free_entry + 0, data=datgw, index=c("id"), model="within")
+      + free_entry , data=datgw, index=c("id"), model="within")
 gw.price.sr4 <- 
   plm(diff(rel_ppi) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(open_h)) 
       + diff(log(open_f)) + diff(log(firms_h)) + diff(log(firms_f)) 
-      + free_entry + 0, data=datgw, index=c("group_industryid"), model="within")
+      + free_entry , data=datgw, index=c("group_industryid"), model="within")
 
 stargazer(gw.price.sr1, gw.price.sr2,
           title="Prices, Short Run",
@@ -314,21 +314,21 @@ stargazer(gw.price.sr1, gw.price.sr2,
 
 gw.mark.sr1 <- 
   plm(diff(log(markup_h/markup_f)) ~ diff(lntau_sh) + diff(lntau_sf) 
-      + diff(log(firms_h)) + diff(log(firms_f)) + 0, 
+      + diff(log(firms_h)) + diff(log(firms_f)), 
       data=datgw, index=c("id"), model="within")
 gw.mark.sr2 <- 
   plm(diff(log(markup_h/markup_f)) ~ diff(lntau_sh) + diff(lntau_sf) 
-      + diff(log(firms_h)) + diff(log(firms_f)) + 0, 
+      + diff(log(firms_h)) + diff(log(firms_f)), 
       data=datgw, index=c("group_industryid"), model="within")
 gw.mark.sr3 <- 
   plm(diff(log(markup_h/markup_f)) ~ diff(lntau_sh) + diff(lntau_sf) 
       + diff(log(open_h)) + diff(log(open_f)) + diff(log(firms_h)) 
-      + diff(log(firms_f)) + 0, 
+      + diff(log(firms_f)), 
       data=datgw, index=c("id"), model="within")
 gw.mark.sr4 <- 
   plm(diff(log(markup_h/markup_f)) ~ diff(lntau_sh) + diff(lntau_sf) 
       + diff(log(open_h)) + diff(log(open_f)) + diff(log(firms_h)) 
-      + diff(log(firms_f)) + 0, 
+      + diff(log(firms_f)), 
       data=datgw, index=c("group_industryid"), model="within")
 
 stargazer(gw.mark.sr1, gw.mark.sr2, gw.mark.sr3, gw.mark.sr4,
@@ -351,11 +351,11 @@ stargazer(gw.mark.sr1, gw.mark.sr2, gw.mark.sr3, gw.mark.sr4,
 
 gw.prod.sr1 <- 
   plm(diff(rel_productivity) ~ diff(lntau_sh) + diff(lntau_sf) + d_ln_firms_h 
-      + d_ln_firms_f + 0, 
+      + d_ln_firms_f , 
       data=datgw, index=c("id"), model="within")
 gw.prod.sr2 <- 
   plm(diff(rel_productivity) ~ diff(lntau_sh) + diff(lntau_sf) + d_ln_firms_h 
-      + d_ln_firms_f + 0, 
+      + d_ln_firms_f , 
       data=datgw, index=c("group_industryid"), model="within")
 gw.prod.sr3 <- 
   plm(diff(rel_productivity) ~ diff(lntau_sh) + diff(lntau_sf) 
@@ -390,27 +390,27 @@ gw.price.lr1 <-
   plm(diff(rel_ppi) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(firms_h)) 
       + diff(log(firms_f)) + lag(rel_ppi) + lag(lntau_sh) + lag(lntau_sf) 
       + lag(log(firms_h)) + lag(log(firms_f)) + lag(log(gdp_h)) 
-      + lag(log(gdp_f)) + 0, 
+      + lag(log(gdp_f)), 
       data=datgw, index=c("id"), model="within")
 gw.price.lr2 <- 
   plm(diff(rel_ppi) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(firms_h)) 
       + diff(log(firms_f)) + lag(rel_ppi) + lag(lntau_sh) + lag(lntau_sf) 
       + lag(log(firms_h)) + lag(log(firms_f)) + lag(log(gdp_h)) 
-      + lag(log(gdp_f)) + 0, 
+      + lag(log(gdp_f)), 
       data=datgw, index=c("group_industryid"), model="within")
 gw.price.lr3 <- 
   plm(diff(rel_ppi) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(open_h)) 
       + diff(log(open_f)) + diff(log(firms_h)) + diff(log(firms_f))
       + lag(rel_ppi) + lag(lntau_sh) + lag(lntau_sf) + lag(log(open_h)) 
       + lag(log(open_f)) + lag(log(firms_h)) + lag(log(firms_f)) 
-      + lag(log(gdp_h)) + lag(log(gdp_f)) + 0, 
+      + lag(log(gdp_h)) + lag(log(gdp_f)), 
       data=datgw, index=c("id"), model="within")
 gw.price.lr4 <- 
   plm(diff(rel_ppi) ~ diff(lntau_sh) + diff(lntau_sf) + diff(log(open_h)) 
       + diff(log(open_f)) + diff(log(firms_h)) + diff(log(firms_f))
       + lag(rel_ppi) + lag(lntau_sh) + lag(lntau_sf) + lag(log(open_h)) 
       + lag(log(open_f)) + lag(log(firms_h)) + lag(log(firms_f)) 
-      + lag(log(gdp_h)) + lag(log(gdp_f)) + 0, 
+      + lag(log(gdp_h)) + lag(log(gdp_f)), 
       data=datgw, index=c("group_industryid"), model="within")
 
 stargazer(gw.price.lr1, gw.price.lr2, gw.price.lr3, gw.price.lr4,
@@ -443,26 +443,26 @@ stargazer(gw.price.lr1, gw.price.lr2, gw.price.lr3, gw.price.lr4,
 gw.mark.lr1 <- 
   plm(diff(log(prod_h/markup_f)) ~ diff(lntau_sh) + diff(lntau_sf) 
       + diff(log(firms_h)) + diff(log(firms_f)) + lag(log(markup_h/markup_f)) 
-      + lag(lntau_sh) + lag(lntau_sf) + lag(log(gdp_h)) + lag(log(gdp_f)) + 0, 
+      + lag(lntau_sh) + lag(lntau_sf) + lag(log(gdp_h)) + lag(log(gdp_f)), 
       data=datgw, index=c("id"), model="within")
 gw.mark.lr2 <- 
   plm(diff(log(markup_h/markup_f)) ~ diff(lntau_sh) + diff(lntau_sf) 
       + diff(log(firms_h)) + diff(log(firms_f)) + lag(log(markup_h/markup_f)) 
-      + lag(lntau_sh) + lag(lntau_sf) + lag(log(gdp_h)) + lag(log(gdp_f)) + 0, 
+      + lag(lntau_sh) + lag(lntau_sf) + lag(log(gdp_h)) + lag(log(gdp_f)), 
       data=datgw, index=c("group_industryid"), model="within")
 gw.mark.lr3 <- 
   plm(diff(log(markup_h/markup_f)) ~ diff(lntau_sh) + diff(lntau_sf) 
       + diff(log(open_h)) + diff(log(open_f)) + diff(log(firms_h)) 
       + diff(log(firms_f)) + lag(log(markup_h/markup_f)) + lag(lntau_sh) 
       + lag(lntau_sf) + lag(log(open_h)) + lag(log(open_f)) + lag(log(gdp_h))
-      + lag(log(gdp_f)) + 0, 
+      + lag(log(gdp_f)), 
       data=datgw, index=c("id"), model="within")
 gw.mark.lr4 <- 
   plm(diff(log(markup_h/markup_f)) ~ diff(lntau_sh) + diff(lntau_sf) 
       + diff(log(open_h)) + diff(log(open_f)) + diff(log(firms_h)) 
       + diff(log(firms_f)) + lag(log(markup_h/markup_f)) + lag(lntau_sh)
       + lag(lntau_sf) + lag(log(open_h)) + lag(log(open_f)) + lag(log(gdp_h)) 
-      + lag(log(gdp_f)) + 0, 
+      + lag(log(gdp_f)), 
       data=datgw, index=c("group_industryid"), model="within")
 
 stargazer(gw.mark.lr1, gw.mark.lr2, gw.mark.lr3, gw.mark.lr4,
@@ -494,27 +494,27 @@ gw.prod.lr1 <-
   plm(diff(rel_productivity) ~ diff(lntau_sh) + diff(lntau_sf) + d_ln_firms_h 
       + d_ln_firms_f + lag(rel_productivity) + lag(lntau_sh) + lag(lntau_sf) 
       + lag(log(gdp_h)) + lag(log(gdp_f)) + lag(log(wage_h)) 
-      + lag(log(wage_f)) + 0, 
+      + lag(log(wage_f)), 
       data=datgw, index=c("id"), model="within")
 gw.prod.lr2 <- 
   plm(diff(rel_productivity) ~ diff(lntau_sh) + diff(lntau_sf) + d_ln_firms_h 
       + d_ln_firms_f + lag(rel_productivity) + lag(lntau_sh) + lag(lntau_sf) 
       + lag(log(gdp_h)) + lag(log(gdp_f)) + lag(log(wage_h)) 
-      + lag(log(wage_f)) + 0, 
+      + lag(log(wage_f)), 
       data=datgw, index=c("group_industryid"), model="within")
 gw.prod.lr3 <- 
   plm(diff(rel_productivity) ~ diff(lntau_sh) + diff(lntau_sf) 
       + diff(log(open_h)) + diff(log(open_f)) + d_ln_firms_h + d_ln_firms_f
       + lag(rel_productivity) + lag(lntau_sh) + lag(lntau_sf) + lag(log(open_h)) 
       + lag(log(open_f)) + lag(log(gdp_h)) + lag(log(gdp_f)) + lag(log(wage_h)) 
-      + lag(log(wage_f)) + 0, 
+      + lag(log(wage_f)), 
       data=datgw, index=c("id"), model="within")
 gw.prod.lr4 <- 
   plm(diff(rel_productivity) ~ diff(lntau_sh) + diff(lntau_sf) 
       + diff(log(open_h)) + diff(log(open_f)) + d_ln_firms_h + d_ln_firms_f
       + lag(rel_productivity) + lag(lntau_sh) + lag(lntau_sf) + lag(log(open_h)) 
       + lag(log(open_f)) + lag(log(gdp_h)) + lag(log(gdp_f)) + lag(log(wage_h)) 
-      + lag(log(wage_f)) + 0, 
+      + lag(log(wage_f)), 
       data=datgw, index=c("group_industryid"), model="within")
 
 stargazer(gw.prod.lr1, gw.prod.lr2, gw.prod.lr3, gw.prod.lr4,
