@@ -1,0 +1,140 @@
+\ifx\undefined\bysame
+\newcommand{\bysame}{\leavevmode\hbox to\leftmargin{\hrulefill\,\,}}
+\fi
+\begin{thebibliography}{xx}
+
+\harvarditem[Arkolakis et al.]{Arkolakis, Costinot and
+  Rodriguez-Clare}{2012a}{Arkolakisetal2012a}
+{\bf Arkolakis, Costas, Arnaud Costinot, and Andres Rodriguez-Clare}, ``{New
+  Trade Models, Same Old Gains?},'' {\it American Economic Review}, February
+  2012, {\it 102} (1), 94--130.
+
+\harvarditem[Arkolakis et al.]{Arkolakis, Costinot, Donaldson and
+  Rodriguez-Clare}{2012b}{Arkolakisetal2012b}
+{\bf \bysame{}, \bysame{}, Dave Donaldson, and Andres Rodriguez-Clare}, ``The
+  Elusive Pro-Competitive Effects of Trade,'' 2012.
+\newblock Working Paper.
+
+\harvarditem[Baldwin et al.]{Baldwin, Dunne and Haltiwanger}{1994}{Baldwin1994}
+{\bf Baldwin, John, Timothy Dunne, and John Haltiwanger}, ``A Comparison of Job
+  Creation and Job Destruction in Canada and the United States,'' 1994.
+\newblock CES Research Paper.
+
+\harvarditem[Bellone et al.]{Bellone, Musso, Nesta and
+  Warzynski}{2008}{Bellone2008}
+{\bf Bellone, Flora, Patrick Musso, Lionel Nesta, and Frederic Warzynski},
+  ``Endogenous Markups, Firm Productivity and International Trade: : Testing
+  SomeMicro-Level Implications of theMelitz-Ottaviano Model,'' Working Papers
+  08-20, University of Aarhus, Aarhus School of Business, Department of
+  Economics September 2008.
+
+\harvarditem[Bernard et al.]{Bernard, Jensen and Schott}{2006a}{Bernard2006a}
+{\bf Bernard, Andrew~B., J.~Bradford Jensen, and Peter~K. Schott}, ``{Survival
+  of the best fit: Exposure to low-wage countries and the (uneven) growth of
+  U.S. manufacturing plants},'' {\it Journal of International Economics},
+  January 2006, {\it 68} (1), 219--237.
+
+\harvarditem[Bernard et al.]{Bernard, Jensen and Schott}{2006b}{Bernard2006}
+{\bf \bysame{}, \bysame{}, and \bysame{}}, ``{Trade costs, firms and
+  productivity},'' {\it Journal of Monetary Economics}, July 2006, {\it 53}
+  (5), 917--937.
+
+\harvarditem[Brown]{Brown}{2004}{Brown2004}
+{\bf Brown, Mark~W.}, ``Renewing Canada's Manufacturing Economy: A Regional
+  Comparison, 1973-1996,'' Technical Report~11 2004.
+
+\harvarditem[Calderon-Madrid and Voicu]{Calderon-Madrid and
+  Voicu}{2007}{Calderon-Madrid2007}
+{\bf Calderon-Madrid, Angel and Alexandru Voicu}, ``The NAFTA Tide : Lifting
+  the Larger and Better Boats,'' 2007.
+\newblock Working Paper.
+
+\harvarditem[Chen et al.]{Chen, Imbs and Scott}{2009}{Chen2009}
+{\bf Chen, Natalie, Jean Imbs, and Andrew Scott}, ``The dynamics of trade and
+  competition,'' {\it Journal of International Economics}, February 2009, {\it
+  77} (1), 50--62.
+
+\harvarditem[Chor and Manova]{Chor and Manova}{2012}{Chor2012}
+{\bf Chor, Davin and Kalina Manova}, ``Off the cliff and back? Credit
+  conditions and international trade during the global financial crisis,'' {\it
+  Journal of International Economics}, 2012, {\it 87} (1), 117--133.
+
+\harvarditem[Corcos et al.]{Corcos, Gatto, Mion and
+  Ottaviano}{2011}{Corcos2011}
+{\bf Corcos, Gregory, Massimo~Del Gatto, Giordano Mion, and Gianmarco I~P
+  Ottaviano}, ``{Productivity and Firm Selection: Quantifying the 'New' Gains
+  From Trade},'' {\it Economic Journal}, 2011, {\it 122}, 754--798.
+
+\harvarditem[Costinot and Rodriguez-Clare]{Costinot and
+  Rodriguez-Clare}{n.d.}{CostinotRodriguez2014}
+{\bf Costinot, Arnaud and Andres Rodriguez-Clare}, in ``in.''
+
+\harvarditem[Dix‐Carneiro]{Dix‐Carneiro}{2014}{DixCarneiro2014}
+{\bf Dix‐Carneiro, Rafael}, ``Trade Liberalization and Labor Market
+  Dynamics,'' {\it Econometrica}, 2014, {\it 82} (3), 825--885.
+
+\harvarditem[Dunne et al.]{Dunne, Roberts and Samuelson}{1988}{Dunne1988}
+{\bf Dunne, Timothy, Mark~J Roberts, and Larry Samuelson}, ``{Patterns of firm
+  entry and exit in U.S. manufacturing industries},'' {\it RAND Journal of
+  Economics}, 1988, {\it 19} (4), 495--515.
+
+\harvarditem[Foster et al.]{Foster, Haltiwanger and Kim}{2006}{Foster2006}
+{\bf Foster, Lucia, John Haltiwanger, and Namsuk Kim}, ``{Gross Job Flows for
+  the U.S. Manufacturing Sector: Measurement from the Longitudinal Research
+  Database},'' Technical Report 2006.
+
+\harvarditem[Fukao et al.]{Fukao, Okubo and Stern}{2003}{Fukao2003}
+{\bf Fukao, Kyoji, Toshihiro Okubo, and Robert~M. Stern}, ``{An econometric
+  analysis of trade diversion under NAFTA},'' {\it The North American Journal
+  of Economics and Finance}, March 2003, {\it 14} (1), 3--24.
+
+\harvarditem[Grossman and Helpman]{Grossman and
+  Helpman}{1990}{GrossmanHelpman1990}
+{\bf Grossman, Gene~M and Elhanan Helpman}, ``{Trade, Innovation, and
+  Growth},'' {\it American Economic Review}, May 1990, {\it 80} (2), 86--91.
+
+\harvarditem[Head and Ries]{Head and Ries}{1999}{Head1999}
+{\bf Head, Keith and John Ries}, ``{Rationalization effects of tariff
+  reductions},'' {\it Journal of International Economics}, April 1999, {\it 47}
+  (2), 295--320.
+
+\harvarditem[Kilian et al.]{Kilian, Rebucci and Spatafora}{2009}{Kilian2009}
+{\bf Kilian, Lutz, Alessandro Rebucci, and Nikola Spatafora}, ``Oil shocks and
+  external balances,'' {\it Journal of International Economics}, April 2009,
+  {\it 77} (2), 181--194.
+
+\harvarditem[Melitz]{Melitz}{2003}{Melitz2003}
+{\bf Melitz, Marc~J.}, ``The Impact of Trade on Intra-Industry Reallocations
+  and Aggregate Industry Productivity,'' {\it Econometrica}, November 2003,
+  {\it 71} (6), 1695--1725.
+
+\harvarditem[Melitz and Trefler]{Melitz and Trefler}{2012}{MelitzTrefler2012}
+{\bf \bysame{} and Daniel Trefler}, ``{Gains from Trade When Firms Matter},''
+  {\it Journal of Economic Perspectives}, Spring 2012, {\it 26} (2), 91--118.
+
+\harvarditem[Melitz and Ottaviano]{Melitz and
+  Ottaviano}{2008}{MelitzOttaviano2008}
+{\bf \bysame{} and Gianmarco I.~P. Ottaviano}, ``{Market Size, Trade, and
+  Productivity},'' {\it Review of Economic Studies}, January 2008, {\it 75}
+  (1), 295--316.
+
+\harvarditem[Melitz and Redding]{Melitz and Redding}{2013}{MelitzRedding2013}
+{\bf \bysame{} and Stephen~J. Redding}, ``{New Trade Models, New Welfare
+  Implications},'' NBER Working Papers 18919, National Bureau of Economic
+  Research, Inc March 2013.
+
+\harvarditem[Ottaviano et al.]{Ottaviano, Tabuchi and
+  Thisse}{2002}{Ottaviano2002}
+{\bf Ottaviano, Gianmarco I.~P., Takatoshi Tabuchi, and Jacques-Francois
+  Thisse}, ``{Agglomeration and Trade Revisited},'' {\it International Economic
+  Review}, 2002, {\it 43} (2), 409--436.
+
+\harvarditem[Romalis]{Romalis}{2007}{Romalis2007}
+{\bf Romalis, John}, ``{NAFTA's and CUSFTA's Impact on International Trade},''
+  {\it Review of Economics and Statistics}, 2007, {\it 89} (3), 416--435.
+
+\harvarditem[Trefler]{Trefler}{2004}{Trefler2004}
+{\bf Trefler, Daniel}, ``{The Long and Short of the Canada-U.S. Free Trade
+  Agreement},'' {\it American Economic Review}, 2004, {\it 94} (4), 870--895.
+
+\end{thebibliography}
