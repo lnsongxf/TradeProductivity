@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.11 (MiKTeX 2.9) (preloaded format=pdflatex 2013.10.9)  12 SEP 2015 16:27
+This is pdfTeX, Version 3.1415926-1.40.11 (MiKTeX 2.9) (preloaded format=pdflatex 2013.10.9)  12 SEP 2015 16:59
 entering extended mode
 **main.tex
 (C:\Users\tew207\Documents\GitHub\TradeProductivity\paper\main.tex
@@ -406,11 +406,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 28
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 51.
 
-(C:\Users\tew207\Documents\GitHub\TradeProductivity\paper\main.aux
-
-LaTeX Warning: Label `eq:gw-estimation-prices' multiply defined.
-
-)
+(C:\Users\tew207\Documents\GitHub\TradeProductivity\paper\main.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 53.
 LaTeX Font Info:    ... okay on input line 53.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 53.
@@ -426,7 +422,8 @@ LaTeX Font Info:    ... okay on input line 53.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 53.
 LaTeX Font Info:    ... okay on input line 53.
 LaTeX Font Info:    Try loading font information for T1+bch on input line 53.
- ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\t1bch.fd"
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\t1bch.fd"
 File: t1bch.fd 2004/10/18 font definitions for T1/bch.
 )
 LaTeX Info: Redefining \microtypecontext on input line 53.
@@ -507,83 +504,119 @@ Overfull \hbox (1.63037pt too wide) in paragraph at lines 160--177
 
 [11] [12] [13] [14] [15] [16] [17] [18] [19] [20] [21] [22] [23] [24]
 (C:\Users\tew207\Documents\GitHub\TradeProductivity\paper\main.bbl [25] [26]) [27]
-<can_mex_tariff.png, id=400, 908.39375pt x 660.4675pt>
-File: can_mex_tariff.png Graphic file (type png)
- <use can_mex_tariff.png>
-<can_usa_tariff.png, id=401, 908.39375pt x 660.4675pt>
-File: can_usa_tariff.png Graphic file (type png)
- <use can_usa_tariff.png> [28 <C:/Users/tew207/Documents/GitHub/TradeProductivity/paper/can_mex_tariff.png (PNG copy)> <
-C:/Users/tew207/Documents/GitHub/TradeProductivity/paper/can_usa_tariff.png (PNG copy)>]
+Package epstopdf Info: Source file: <tau_can_mex.eps>
+(epstopdf)                    date: 2015-09-12 16:59:16
+(epstopdf)                    size: 63557 bytes
+(epstopdf)             Output file: <tau_can_mex-eps-converted-to.pdf>
+(epstopdf)                    date: 2015-09-12 16:59:26
+(epstopdf)                    size: 20545 bytes
+(epstopdf)             Command: <epstopdf --outfile=tau_can_mex-eps-converted-to.pdf tau_can_mex.eps>
+(epstopdf)             \includegraphics on input line 331.
+Package epstopdf Info: Output file is already uptodate.
 
-! LaTeX Error: File `mex_can_tariff' not found.
+<tau_can_mex-eps-converted-to.pdf, id=398, 650.43pt x 433.62pt>
+File: tau_can_mex-eps-converted-to.pdf Graphic file (type pdf)
+ <use tau_can_mex-eps-converted-to.pdf>
+Package epstopdf Info: Source file: <tau_can_usa.eps>
+(epstopdf)                    date: 2015-09-12 16:58:46
+(epstopdf)                    size: 64930 bytes
+(epstopdf)             Output file: <tau_can_usa-eps-converted-to.pdf>
+(epstopdf)                    date: 2015-09-12 16:59:26
+(epstopdf)                    size: 20354 bytes
+(epstopdf)             Command: <epstopdf --outfile=tau_can_usa-eps-converted-to.pdf tau_can_usa.eps>
+(epstopdf)             \includegraphics on input line 337.
+Package epstopdf Info: Output file is already uptodate.
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.345 \includegraphics[scale=0.35]{mex_can_tariff}
-                                                  
-I could not locate the file with any of these extensions:
-.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPEG,.JBIG2,.JB2,.eps
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+<tau_can_usa-eps-converted-to.pdf, id=399, 650.43pt x 433.62pt>
+File: tau_can_usa-eps-converted-to.pdf Graphic file (type pdf)
+ <use tau_can_usa-eps-converted-to.pdf> [28 <C:/Users/tew207/Documents/GitHub/TradeProductivity/paper/tau_can_mex-eps-co
+nverted-to.pdf> <C:/Users/tew207/Documents/GitHub/TradeProductivity/paper/tau_can_usa-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <tau_mex_can.eps>
+(epstopdf)                    date: 2015-09-12 16:59:07
+(epstopdf)                    size: 64892 bytes
+(epstopdf)             Output file: <tau_mex_can-eps-converted-to.pdf>
+(epstopdf)                    date: 2015-09-12 16:59:27
+(epstopdf)                    size: 20664 bytes
+(epstopdf)             Command: <epstopdf --outfile=tau_mex_can-eps-converted-to.pdf tau_mex_can.eps>
+(epstopdf)             \includegraphics on input line 345.
+Package epstopdf Info: Output file is already uptodate.
+ <tau_mex_can-eps-converted-to.pdf, id=503, 650.43pt x 433.62pt>
+File: tau_mex_can-eps-converted-to.pdf Graphic file (type pdf)
 
+<use tau_mex_can-eps-converted-to.pdf>
+Package epstopdf Info: Source file: <tau_mex_usa.eps>
+(epstopdf)                    date: 2015-09-12 16:58:30
+(epstopdf)                    size: 64919 bytes
+(epstopdf)             Output file: <tau_mex_usa-eps-converted-to.pdf>
+(epstopdf)                    date: 2015-09-12 16:59:27
+(epstopdf)                    size: 20802 bytes
+(epstopdf)             Command: <epstopdf --outfile=tau_mex_usa-eps-converted-to.pdf tau_mex_usa.eps>
+(epstopdf)             \includegraphics on input line 351.
+Package epstopdf Info: Output file is already uptodate.
+ <tau_mex_usa-eps-converted-to.pdf, id=504, 650.43pt x 433.62pt>
+File: tau_mex_usa-eps-converted-to.pdf Graphic file (type pdf)
 
-! LaTeX Error: File `mex_usa_tariff' not found.
+<use tau_mex_usa-eps-converted-to.pdf> [29 <C:/Users/tew207/Documents/GitHub/TradeProductivity/paper/tau_mex_can-eps-con
+verted-to.pdf> <C:/Users/tew207/Documents/GitHub/TradeProductivity/paper/tau_mex_usa-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <tau_usa_can.eps>
+(epstopdf)                    date: 2015-09-12 16:58:56
+(epstopdf)                    size: 62878 bytes
+(epstopdf)             Output file: <tau_usa_can-eps-converted-to.pdf>
+(epstopdf)                    date: 2015-09-12 16:59:28
+(epstopdf)                    size: 20263 bytes
+(epstopdf)             Command: <epstopdf --outfile=tau_usa_can-eps-converted-to.pdf tau_usa_can.eps>
+(epstopdf)             \includegraphics on input line 359.
+Package epstopdf Info: Output file is already uptodate.
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.351 \includegraphics[scale=0.35]{mex_usa_tariff}
-                                                  
-I could not locate the file with any of these extensions:
-.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPEG,.JBIG2,.JB2,.eps
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+<tau_usa_can-eps-converted-to.pdf, id=609, 650.43pt x 433.62pt>
+File: tau_usa_can-eps-converted-to.pdf Graphic file (type pdf)
+ <use tau_usa_can-eps-converted-to.pdf>
+Package epstopdf Info: Source file: <tau_usa_mex.eps>
+(epstopdf)                    date: 2015-09-12 16:57:32
+(epstopdf)                    size: 63369 bytes
+(epstopdf)             Output file: <tau_usa_mex-eps-converted-to.pdf>
+(epstopdf)                    date: 2015-09-12 16:59:28
+(epstopdf)                    size: 20580 bytes
+(epstopdf)             Command: <epstopdf --outfile=tau_usa_mex-eps-converted-to.pdf tau_usa_mex.eps>
+(epstopdf)             \includegraphics on input line 365.
+Package epstopdf Info: Output file is already uptodate.
 
-[29] <usa_can_tariff.png, id=413, 908.39375pt x 660.4675pt>
-File: usa_can_tariff.png Graphic file (type png)
- <use usa_can_tariff.png>
-<usa_mex_tariff.png, id=414, 908.39375pt x 660.4675pt>
-File: usa_mex_tariff.png Graphic file (type png)
- <use usa_mex_tariff.png>
-(C:\Users\tew207\Documents\GitHub\TradeProductivity\paper\sumstats.tex)
-Overfull \hbox (13.28404pt too wide) in paragraph at lines 384--423
+<tau_usa_mex-eps-converted-to.pdf, id=610, 650.43pt x 433.62pt>
+File: tau_usa_mex-eps-converted-to.pdf Graphic file (type pdf)
+ <use tau_usa_mex-eps-converted-to.pdf>
+(C:\Users\tew207\Documents\GitHub\TradeProductivity\paper\sumstats.tex) [30 <C:/Users/tew207/Documents/GitHub/TradeProdu
+ctivity/paper/tau_usa_can-eps-converted-to.pdf> <C:/Users/tew207/Documents/GitHub/TradeProductivity/paper/tau_usa_mex-ep
+s-converted-to.pdf>] [31]
+Overfull \hbox (13.28404pt too wide) in paragraph at lines 385--424
 []  [] 
  []
 
-(C:\Users\tew207\Documents\GitHub\TradeProductivity\paper\gw_price_sr.tex) [30 <C:/Users/tew207/Documents/GitHub/TradePr
-oductivity/paper/usa_can_tariff.png (PNG copy)> <C:/Users/tew207/Documents/GitHub/TradeProductivity/paper/usa_mex_tariff
-.png (PNG copy)>] [31] (C:\Users\tew207\Documents\GitHub\TradeProductivity\paper\gw_mark_sr.tex)
+(C:\Users\tew207\Documents\GitHub\TradeProductivity\paper\gw_price_sr.tex)
+(C:\Users\tew207\Documents\GitHub\TradeProductivity\paper\gw_mark_sr.tex)
 (C:\Users\tew207\Documents\GitHub\TradeProductivity\paper\gw_prod_sr.tex)
 (C:\Users\tew207\Documents\GitHub\TradeProductivity\paper\gw_price_lr.tex)
 (C:\Users\tew207\Documents\GitHub\TradeProductivity\paper\gw_mark_lr.tex)
 (C:\Users\tew207\Documents\GitHub\TradeProductivity\paper\gw_prod_lr.tex)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 471.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 472.
  [32] [33] [34] [35] [36] [37] [38]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 471.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 472.
 
 (C:\Users\tew207\Documents\GitHub\TradeProductivity\paper\main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 471.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 471.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 472.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 472.
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: CB661AD751DB70548FCDFAE3F3E1AA2D;812.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 471.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 472.
  )
 (\end occurred inside a group at level 1)
 
 ### semi simple group (level 1) entered at line 89 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 9207 strings out of 494053
- 138305 string characters out of 3146182
- 315175 words of memory out of 3000000
- 11927 multiletter control sequences out of 15000+200000
+ 9216 strings out of 494053
+ 138852 string characters out of 3146182
+ 315265 words of memory out of 3000000
+ 11936 multiletter control sequences out of 15000+200000
  76483 words of font info for 230 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
  42i,19n,35p,3232b,567s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -601,9 +634,9 @@ blic/amsfonts/cm/cmr8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/
  (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfont
 s/cm/cmsy6.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files (x86)/MiKTe
 X 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on main.pdf (38 pages, 552088 bytes).
+Output written on main.pdf (38 pages, 460614 bytes).
 PDF statistics:
- 550 PDF objects out of 1000 (max. 8388607)
+ 844 PDF objects out of 1000 (max. 8388607)
  118 named destinations out of 1000 (max. 500000)
- 31357 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 31367 words of extra memory for PDF output out of 35830 (max. 10000000)
 
