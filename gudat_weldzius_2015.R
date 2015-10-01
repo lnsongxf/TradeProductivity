@@ -142,7 +142,7 @@ variables <-
 data[, variables] <- as.double(NA)
 rm(variables)
 
-dim.data.frame(data)
+
 # Country-level data (merge by year only)
 for (i in countries) {
   for (j in c("gdp_")) {
@@ -210,7 +210,6 @@ for (i in pairs) {
   h = unlist(strsplit(i,"-"))[1]
   f = unlist(strsplit(i,"-"))[2]
   t = countries[!(countries %in% c(h,f))]
-  print(paste0("Now merging",h,f,t))
   data[market_h==h & market_f==f, tau_hf := get(paste0("tau_s_",h,"_",f))]
   data[market_h==h & market_f==f, tau_fh := get(paste0("tau_s_",f,"_",h))]
   data[market_h==h & market_f==f, tau_ht := get(paste0("tau_s_",h,"_",t))]
@@ -300,7 +299,15 @@ data[industry %in% free_entry_list, free_entry := 1]
 data[industry %in% fixed_entry_list, free_entry := 2]
 
 # Smooth out jumps in Canadian and Mexican firm data
-
+data[, logfirms_h := log(firms_h)]
+data[, logfirms_f := log(firms_f)]
+data[, difflogfirms_h := diff(logfirms_h)]
+data[, difflogfirms_f := diff(logfirms_f)]
+data[(year==1993) & (market_h=="mex"), difflogfirms_h := data[(year==1994) & (market_h=="mex"), difflogfirms_h]]
+canjump1 <- data[(year==1998) & (market_h=="can"), difflogfirms_h] + data[(year==2000) & (market_h=="can"), difflogfirms_h]
+data[(year==1999) & (market_h=="can"), difflogfirms_h := canjump1]
+canjump2 <- data[(year==2002) & (market_h=="can"), difflogfirms_h] + data[(year==2004) & (market_h=="can"), difflogfirms_h]
+data[(year==2003) & (market_h=="can"), difflogfirms_h := canjump2]
 
 ################################################################################
 ##########################      ESTIMATION       ###############################
@@ -348,7 +355,7 @@ stargazer(price.sr1, price.sr2, price.sr3, price.sr4, price.sr5, price.sr6,
                              "$\\Delta \\log D_t^*$",
                              "Free Entry"),
           dep.var.labels="$\\Delta \\log \\left(\\frac{p}{p^*} \\right)$",
-          notes = c("(1),(3): Fixed effects country-industry \\\\ (2),(4): Fixed effects country pair"),
+          notes = c("(1),(3): Fixed effects country-industry; (2),(4): Fixed effects country pair"),
           omit.stat = c("adj.rsq", "f", "ser"),
           float=F, out="C:/Users/tew207/Documents/GitHub/Thesis/gw_price_sr.tex")
 
@@ -616,13 +623,17 @@ price.sr6 <- plm(diff(log(ppi_h/ppi_f)) ~ diff(log(tau_hf)) + diff(log(tau_fh))
 
 stargazer(price.sr1, price.sr2, price.sr3, price.sr4, price.sr5, price.sr6,
           title="Prices, Short Run",
-          covariate.labels=c("$\\Delta \\log \\tau_t$",
-                             "$\\Delta \\log \\tau_t^*$",
+          covariate.labels=c("$\\Delta \\log \\tau^{hf}$",
+                             "$\\Delta \\log \\tau^{fh}$",
+                             "$\\Delta \\log \\tau^{ht}$",
+                             "$\\Delta \\log \\tau^{th}$",
+                             "$\\Delta \\log \\tau^{ft}$",
+                             "$\\Delta \\log \\tau^{tf}$",
                              "$\\Delta \\log D_t$",
                              "$\\Delta \\log D_t^*$",
                              "Free Entry"),
           dep.var.labels="$\\Delta \\log \\left(\\frac{p}{p^*} \\right)$",
-          notes = c("(1),(3): Fixed effects country-industry \\\\ (2),(4): Fixed effects country pair"),
+          notes = c("(1),(3): Fixed effects country-industry: (2),(4): Fixed effects country pair"),
           omit.stat = c("adj.rsq", "f", "ser"),
           float=F, out="C:/Users/tew207/Documents/GitHub/Thesis/gw_price_sr_third.tex")
 
